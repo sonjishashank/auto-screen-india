@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoScreen India — Full Execution Plan</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#070B16;--bg2:#0C1220;--bg3:#0E1828;
+  --bdr:#182035;--text:#D8E0F0;--t2:#8A9BB5;--t3:#3D5070;
+  --g:#00CC7A;--y:#F5A623;--r:#EF4444;--bl:#60A5FA;--pu:#A78BFA;
+}
+body{font-family:-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:13px}
+
+/* HEADER */
+.hdr{background:var(--bg2);border-bottom:1px solid var(--bdr);padding:13px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:20}
+.logo{width:36px;height:36px;background:var(--g);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:16px;flex-shrink:0}
+.ht{font-size:14px;font-weight:700}
+.hs{font-size:10.5px;color:var(--t3);margin-top:1px}
+
+/* PROGRESS */
+.pbar{background:var(--bg2);padding:7px 16px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;gap:10px}
+.pb-l{font-size:10px;color:var(--t3);white-space:nowrap}
+.pb-t{flex:1;height:4px;background:var(--bdr);border-radius:2px;overflow:hidden}
+.pb-f{height:100%;background:linear-gradient(90deg,var(--g),#00AACC);width:0%;transition:width .3s}
+.pb-v{font-size:10px;color:var(--g);font-weight:700;white-space:nowrap}
+
+/* TABS */
+.tabs{background:var(--bg2);border-bottom:2px solid var(--bdr);display:flex;overflow-x:auto;padding:0 6px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:9px 10px;font-size:10.5px;font-weight:700;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;user-select:none;transition:color .15s}
+.tab.on{color:var(--g);border-bottom-color:var(--g)}
+.tab:hover:not(.on){color:var(--t2)}
+
+/* CONTENT */
+.wrap{padding:13px;max-width:840px;margin:0 auto}
+.sec{display:none}.sec.on{display:block}
+
+/* CARDS */
+.card{background:var(--bg3);border:1px solid var(--bdr);border-radius:10px;padding:13px;margin-bottom:10px}
+.ct{font-size:9px;font-weight:800;color:var(--g);text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px}
+
+/* TABLES */
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+th{text-align:left;padding:6px 8px;background:#111E36;color:var(--t2);font-size:10.5px;font-weight:600}
+td{padding:6px 8px;border-bottom:1px solid var(--bdr);color:#B8C4DA;vertical-align:top;line-height:1.5}
+tr:last-child td{border-bottom:none}
+.tr-t td{color:var(--g);font-weight:700;background:rgba(0,204,122,.05);border-top:1px solid rgba(0,204,122,.25)}
+
+/* METRICS */
+.mrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:10px}
+.m{background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:10px;text-align:center}
+.mv{font-size:16px;font-weight:800;color:var(--g)}
+.ml{font-size:9px;color:var(--t3);margin-top:3px;line-height:1.4}
+
+/* BADGES */
+.b{display:inline-block;padding:1px 6px;border-radius:10px;font-size:9.5px;font-weight:700}
+.bg{background:rgba(0,204,122,.12);color:var(--g)}
+.by{background:rgba(245,166,35,.12);color:var(--y)}
+.br{background:rgba(239,68,68,.12);color:var(--r)}
+.bb{background:rgba(96,165,250,.12);color:var(--bl)}
+.bpu{background:rgba(167,139,250,.12);color:var(--pu)}
+
+/* LISTS */
+.dl{list-style:none;padding:0}
+.dl li{padding:3px 0 3px 12px;font-size:11.5px;color:var(--t2);line-height:1.6;position:relative}
+.dl li::before{content:'→';position:absolute;left:0;color:var(--g);font-size:9.5px;top:5px}
+
+/* STEPS */
+.step{display:flex;gap:10px;padding-bottom:12px;position:relative}
+.step::after{content:'';position:absolute;left:10px;top:24px;bottom:0;width:1px;background:var(--bdr)}
+.step:last-child::after{display:none}
+.sn{width:22px;height:22px;border-radius:50%;background:var(--g);color:#000;font-weight:800;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:1}
+.sb{flex:1}.st{font-size:12.5px;font-weight:600;color:var(--text);margin-bottom:2px}
+.sd{font-size:11px;color:var(--t3);line-height:1.65}
+
+/* ALERTS */
+.tip{background:rgba(0,204,122,.06);border:1px solid rgba(0,204,122,.2);border-radius:8px;padding:8px 11px;font-size:11px;color:var(--g);margin-bottom:10px}
+.warn{background:rgba(245,166,35,.06);border:1px solid rgba(245,166,35,.2);border-radius:8px;padding:8px 11px;font-size:11px;color:var(--y);margin-bottom:10px}
+
+/* NAME CARDS */
+.nc{border:1px solid var(--bdr);border-radius:8px;padding:10px 13px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;background:#0A1220}
+.nc.r{border-color:var(--g);background:rgba(0,204,122,.04)}
+.nn{font-size:13.5px;font-weight:700;color:var(--text)}
+.nd{font-size:10px;color:var(--t3);margin-top:2px}
+
+/* PHASE BLOCKS */
+.ph{background:var(--bg3);border:1px solid var(--bdr);border-radius:10px;margin-bottom:10px;overflow:hidden}
+.ph-hd{padding:11px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;user-select:none}
+.ph-n{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:10.5px;flex-shrink:0}
+.ph-tt{flex:1}
+.ph-title{font-size:12.5px;font-weight:700;color:var(--text)}
+.ph-sub{font-size:10px;color:var(--t3);margin-top:1px}
+.ph-arr{font-size:10px;color:var(--t3);transition:transform .2s}
+.ph-hd.closed .ph-arr{transform:rotate(-90deg)}
+.ph-body{padding:0 14px 12px;border-top:1px solid var(--bdr)}
+.ph-body.hidden{display:none}
+
+/* CHECKLIST */
+.ci{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px dashed #111E36;cursor:pointer;user-select:none}
+.ci:last-child{border-bottom:none}
+.cb{width:14px;height:14px;border:1.5px solid #2A3D5A;border-radius:3px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center}
+.ci.done .cb{background:var(--g);border-color:var(--g)}
+.ci.done .cb::after{content:'✓';color:#000;font-size:8px;font-weight:900}
+.ct-txt{font-size:11px;color:#B8C4DA;line-height:1.5}
+.ci.done .ct-txt{text-decoration:line-through;color:var(--t3)}
+
+/* REV BARS */
+.rbar{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.rb-l{font-size:10px;color:var(--t3);width:52px}
+.rb-t{flex:1;height:7px;background:var(--bdr);border-radius:3px;overflow:hidden}
+.rb-f{height:100%;background:linear-gradient(90deg,var(--g),#00AACC);border-radius:3px}
+.rb-v{font-size:10px;color:var(--g);font-weight:700;width:40px;text-align:right}
+
+/* MISC */
+.div{height:1px;background:var(--bdr);margin:10px 0}
+h3{font-size:12.5px;font-weight:700;color:var(--text);margin-bottom:6px}
+p{font-size:11px;color:var(--t3);line-height:1.65}
+
+@media(max-width:480px){
+  .mrow{grid-template-columns:repeat(2,1fr)}
+  .wrap{padding:10px}
+  .nc{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="logo">A</div>
+  <div>
+    <div class="ht">AutoScreen India — Full Execution Plan</div>
+    <div class="hs">Location-based Auto Rickshaw Ad Network · Hyderabad + Pune</div>
+  </div>
+</div>
+
+<!-- PROGRESS -->
+<div class="pbar">
+  <span class="pb-l">Checklist Progress</span>
+  <div class="pb-t"><div class="pb-f" id="pbf"></div></div>
+  <span class="pb-v" id="pbv">0/0 done</span>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab on" onclick="sw('identity',this)">🏷️ Identity</div>
+  <div class="tab" onclick="sw('hardware',this)">🖥️ Hardware</div>
+  <div class="tab" onclick="sw('legal',this)">⚖️ Legal</div>
+  <div class="tab" onclick="sw('website',this)">🌐 Website</div>
+  <div class="tab" onclick="sw('gtm',this)">🚀 GTM</div>
+  <div class="tab" onclick="sw('sales',this)">💰 Sales</div>
+  <div class="tab" onclick="sw('financials',this)">📊 Financials</div>
+  <div class="tab" onclick="sw('checklist',this)">✅ Checklist</div>
+</div>
+
+<div class="wrap">
+
+<!-- ============================================================ -->
+<!--  TAB 1 — IDENTITY                                           -->
+<!-- ============================================================ -->
+<div id="identity" class="sec on">
+
+  <div class="card">
+    <div class="ct">5 Business Name Options</div>
+
+    <div class="nc r">
+      <div>
+        <div class="nn">RouteReach Media</div>
+        <div class="nd">"Route" = transport context · "Reach" = advertising reach · Double meaning = perfect brand. Short, boardroom-ready.</div>
+      </div>
+      <span class="b bg">⭐ Pick This</span>
+    </div>
+
+    <div class="nc">
+      <div><div class="nn">AutoBoard India</div><div class="nd">Billboard + Auto merged. Self-explanatory to any advertiser.</div></div>
+      <span class="b bb">Option 2</span>
+    </div>
+
+    <div class="nc">
+      <div><div class="nn">GeoAds Network</div><div class="nd">Tech-forward. Signals location intelligence. Good for pitch decks.</div></div>
+      <span class="b bb">Option 3</span>
+    </div>
+
+    <div class="nc">
+      <div><div class="nn">RideScreen</div><div class="nd">Catchy product name. Works as both brand + app name.</div></div>
+      <span class="b bb">Option 4</span>
+    </div>
+
+    <div class="nc">
+      <div><div class="nn">MoveAds India</div><div class="nd">OOH advertising industry language. Agency-friendly.</div></div>
+      <span class="b bb">Option 5</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Brand Identity Decisions (RouteReach Media)</div>
+    <table>
+      <tr><th>Element</th><th>Decision</th></tr>
+      <tr><td>Legal name</td><td>RouteReach Media Private Limited</td></tr>
+      <tr><td>Short brand</td><td>RouteReach</td></tr>
+      <tr><td>Domain</td><td>routereach.in + routereach.media (~₹800/year)</td></tr>
+      <tr><td>Primary tagline</td><td>"Every Route. Every Customer."</td></tr>
+      <tr><td>Alt tagline</td><td>"Ads That Move With Your City"</td></tr>
+      <tr><td>Primary color</td><td>#00CC7A — Electric green (ad-tech energy, distinct from competition)</td></tr>
+      <tr><td>Logo direction</td><td>Auto silhouette + location pin/wifi icon = location-aware mobility</td></tr>
+      <tr><td>Logo tool</td><td>Canva Pro OR Fiverr designer (₹1,500–3,000, 2-day turnaround)</td></tr>
+      <tr><td>Font</td><td>Inter Bold (headlines) + Inter Regular (body) — free via Google Fonts</td></tr>
+      <tr><td>Positioning</td><td>Premium hyperlocal OOH media platform for Tier 1 Indian cities</td></tr>
+      <tr><td>Target tone</td><td>Data-driven, local-first, growth-partner (not just ad vendor)</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">Brand Setup Action Items</div>
+    <ul class="dl">
+      <li>Register domain: GoDaddy or Namecheap (routereach.in + .com if available)</li>
+      <li>Set up Google Workspace: info@, sales@, drivers@ (₹150/user/month)</li>
+      <li>Design logo — Canva or Fiverr. Get 3 variants: full color, white-on-dark, icon-only</li>
+      <li>Create brand kit PDF: colors (HEX + RGB), fonts, logo usage rules</li>
+      <li>Create LinkedIn company page — primary B2B channel for advertiser leads</li>
+      <li>Create Instagram Business page — "ads in action" video content + proof of concept</li>
+      <li>Set up WhatsApp Business — driver support + advertiser queries (separate numbers)</li>
+      <li>File trademark via ipindia.gov.in — Class 35 (Advertising services) — ₹4,500</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!--  TAB 2 — HARDWARE                                           -->
+<!-- ============================================================ -->
+<div id="hardware" class="sec">
+
+  <div class="tip">🔒 Flash-proof = Device boots only YOUR app. No Android home screen, no other apps, no settings access. Driver cannot exit, uninstall, or tamper. Achieved via MDM + Android Enterprise Kiosk Mode + Samsung Knox security layer.</div>
+
+  <div class="mrow">
+    <div class="m"><div class="mv">₹14,999</div><div class="ml">Samsung Tab A8<br>LTE recommended</div></div>
+    <div class="m"><div class="mv">Knox</div><div class="ml">Enterprise security<br>built-in Samsung</div></div>
+    <div class="m"><div class="mv">₹150/mo</div><div class="ml">Hexnode MDM<br>per device</div></div>
+    <div class="m"><div class="mv">~₹16K</div><div class="ml">Total per unit<br>all-in hardware</div></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Device Comparison</div>
+    <table>
+      <tr><th>Device</th><th>Price</th><th>4G SIM</th><th>Anti-Flash Protection</th><th>Verdict</th></tr>
+      <tr><td>Samsung Galaxy Tab A8 10.5"</td><td>₹14,999</td><td>✅</td><td>Samsung Knox — even flash attempt bricks device until enterprise unlock</td><td><span class="b bg">Best Pick</span></td></tr>
+      <tr><td>Lenovo Tab M10 Plus Gen3</td><td>₹12,999</td><td>✅</td><td>Android Enterprise Ready certified — MDM device owner lock</td><td><span class="b bb">Good</span></td></tr>
+      <tr><td>Redmi Pad 4G</td><td>₹13,499</td><td>✅</td><td>MDM only — no Knox hardware security layer</td><td><span class="b bb">OK</span></td></tr>
+      <tr><td>Blackview Tab 60 4G</td><td>₹8,499</td><td>✅</td><td>MDM only — lowest tamper resistance</td><td><span class="b by">Budget</span></td></tr>
+    </table>
+    <p style="margin-top:8px;">Samsung Tab A8 = best choice. Knox Security fuses hardware + software lockdown. Competitor tablets only have MDM which a determined hacker can bypass; Knox cannot.</p>
+  </div>
+
+  <div class="card">
+    <div class="ct">Flash-Proof Kiosk Setup — Step by Step</div>
+    <div class="tip">MDM: Hexnode MDM (hexnode.com) — Indian company, ₹150/device/month annual plan, 30-day free trial. Manage ALL devices remotely from one browser dashboard.</div>
+
+    <div class="step">
+      <div class="sn">1</div>
+      <div class="sb">
+        <div class="st">Sign up Hexnode MDM</div>
+        <div class="sd">hexnode.com → Start free trial → create org account → go to dashboard. Buy annual plan (₹150/device/mo) before trial ends.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">2</div>
+      <div class="sb">
+        <div class="st">Factory Reset Samsung Tab A8</div>
+        <div class="sd">Settings → General Management → Reset → Factory data reset. Start completely fresh. Skip all Google account prompts.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">3</div>
+      <div class="sb">
+        <div class="st">Enroll via QR Code (Android Enterprise)</div>
+        <div class="sd">In Hexnode portal: Enroll Device → Android → Device Owner → Generate QR. On Tab A8 first-boot screen: tap blank area 6 times → QR enrollment mode appears → scan Hexnode QR. Device auto-enrolls as Hexnode Device Owner (DPC mode = highest control level).</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">4</div>
+      <div class="sb">
+        <div class="st">Upload Your Ad Player APK</div>
+        <div class="sd">Hexnode portal → App Management → Enterprise Apps → Add → Upload APK. Hexnode hosts and pushes it to all enrolled devices.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">5</div>
+      <div class="sb">
+        <div class="st">Create Kiosk Policy</div>
+        <div class="sd">Hexnode → Policies → Create Policy → Kiosk Lockdown → Single App Kiosk → select your Ad Player APK. Enable: disable status bar, disable hardware buttons (home/back/recents), lock landscape orientation, disable notifications, disable settings access.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">6</div>
+      <div class="sb">
+        <div class="st">Security Hardening (Critical)</div>
+        <div class="sd">Inside policy: Disable USB debugging · Disable factory reset · Disable safe mode boot · Disable sideloading apps · Enable Knox policies (Samsung tab): restrict USB data transfer, enable tamper alert (emails you if device opened), prevent developer options access.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">7</div>
+      <div class="sb">
+        <div class="st">Apply Policy + Push APK</div>
+        <div class="sd">Assign policy to device group. Hexnode remotely installs your APK + applies all lockdown settings. Device reboots directly into your app — no Android UI visible ever again.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">8</div>
+      <div class="sb">
+        <div class="st">Physical Tamper Proofing</div>
+        <div class="sd">Get custom acrylic or metal cover plate that exposes only the screen (covers volume + power buttons). Mount using anti-theft security screws (Torx T6 — driver can't remove with normal tools). Add Kensington nano lock slot to bracket. Now driver has zero physical access to buttons.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Bill of Materials — Per Unit</div>
+    <table>
+      <tr><th>Component</th><th>Spec</th><th>Buy From</th><th>Cost</th></tr>
+      <tr><td>Samsung Galaxy Tab A8 10.5" LTE</td><td>3GB RAM, 32GB, 4G SIM slot</td><td>Flipkart B2B / Amazon</td><td>₹14,999</td></tr>
+      <tr><td>Automotive DC-DC converter</td><td>12V in → 5V/3A USB-C out, surge protected</td><td>Amazon / Robu.in</td><td>₹350</td></tr>
+      <tr><td>Custom metal bracket mount</td><td>Behind driver seat, anti-theft Torx screws</td><td>Local metal fabricator</td><td>₹500</td></tr>
+      <tr><td>Tamper-proof case (button cover)</td><td>Acrylic/metal plate, screen-only access</td><td>Local fabricator or Alibaba</td><td>₹350</td></tr>
+      <tr><td>Cable clips + zip ties</td><td>Hide and protect power cable routing</td><td>Local hardware shop</td><td>₹50</td></tr>
+      <tr><td>Jio/Airtel SIM card</td><td>1GB/day data plan</td><td>Local telecom store</td><td>₹200 (one-time)</td></tr>
+      <tr class="tr-t"><td colspan="3"><strong>Total Hardware Per Unit</strong></td><td><strong>₹16,249</strong></td></tr>
+      <tr><td colspan="3" style="color:var(--t3);font-size:10.5px">Monthly opex per unit (SIM data + MDM)</td><td style="color:var(--y)">₹400/mo</td></tr>
+    </table>
+    <p style="margin-top:8px">At 200+ units: negotiate Flipkart B2B bulk discount (~12%). Brings device cost to ~₹13,200. Total per unit drops to ~₹14,400.</p>
+  </div>
+
+  <div class="card">
+    <div class="ct">Ad Player APK — What to Build</div>
+    <ul class="dl">
+      <li>Fullscreen launcher — device boots directly to app, no Android UI ever visible</li>
+      <li>GPS polling every 30 seconds → checks against geofence zone database</li>
+      <li>Zone match → switch to that zone's ad playlist (images or 15-sec videos)</li>
+      <li>Offline cache — stores 50+ ads locally, runs uninterrupted 24hrs without internet</li>
+      <li>Watchdog service — detects crash, restarts app within 3 seconds automatically</li>
+      <li>Heartbeat ping — sends impression data to server every 60 seconds (for reporting)</li>
+      <li>Auto-sync — downloads new ads overnight or during low-data hours</li>
+      <li>Remote APK update — Hexnode pushes new versions silently (no driver involvement)</li>
+      <li>Screen brightness locked at 80% (sunlight readable, battery safe)</li>
+      <li>Build: Android Studio + Kotlin. Estimated dev time: 3–4 weeks by 1 developer</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!--  TAB 3 — LEGAL                                              -->
+<!-- ============================================================ -->
+<div id="legal" class="sec">
+
+  <div class="card">
+    <div class="ct">Which Business Entity to Register?</div>
+    <table>
+      <tr><th>Type</th><th>Setup Cost</th><th>Time</th><th>Best For</th><th>Pick?</th></tr>
+      <tr><td>Sole Proprietorship</td><td>₹0–2K</td><td>1 day</td><td>Zero-investment testing only</td><td><span class="b br">Skip</span></td></tr>
+      <tr><td>LLP</td><td>₹5–8K</td><td>7–10 days</td><td>2 founders, fewer compliance needs</td><td><span class="b bb">If 2 founders</span></td></tr>
+      <tr><td>Private Limited Company</td><td>₹8–12K</td><td>10–15 days</td><td>Investors, scaling, city expansion</td><td><span class="b bg">Recommended</span></td></tr>
+    </table>
+    <p style="margin-top:8px">Register Pvt Ltd. Advertisers (especially corporates) take it seriously. Enables equity fundraising, ESOPs, and multi-state operations. Use Indiafilings.com — guided process, ₹8K–12K all-in.</p>
+  </div>
+
+  <div class="card">
+    <div class="ct">Full Registration Roadmap</div>
+    <table>
+      <tr><th>Registration</th><th>Portal</th><th>Cost</th><th>Timeline</th><th>Why Needed</th></tr>
+      <tr><td>Private Limited Company</td><td>MCA21 via Indiafilings.com</td><td>₹8,000–12,000</td><td>10–15 days</td><td>Legal entity for all business operations</td></tr>
+      <tr><td>GST Registration</td><td>gst.gov.in (free)</td><td>Free</td><td>3–7 days</td><td>Mandatory to raise GST invoices to businesses. Get immediately.</td></tr>
+      <tr><td>MSME / Udyam</td><td>udyamregistration.gov.in (free)</td><td>Free</td><td>1 day</td><td>Govt subsidies, priority bank loans, tender eligibility</td></tr>
+      <tr><td>Trademark (TM)</td><td>ipindia.gov.in</td><td>₹4,500 (Class 35)</td><td>File day 1 → ™ immediate; registered in 18–24 months</td><td>Protects brand name nationally</td></tr>
+      <tr><td>Business Current Account</td><td>HDFC / ICICI / Kotak</td><td>Free</td><td>2–3 days</td><td>Legally required for Pvt Ltd. Separate from personal money.</td></tr>
+      <tr class="tr-t"><td colspan="2"><strong>Total Legal Setup</strong></td><td><strong>~₹15,000–20,000</strong></td><td colspan="2">Complete in 2–3 weeks</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">Driver Agreement — Key Clauses to Include</div>
+    <ul class="dl">
+      <li>Device is property of RouteReach Media Pvt Ltd at all times — driver has no ownership claim</li>
+      <li>Driver must not remove, cover, tamper with, or modify the device in any way</li>
+      <li>Device must be powered on and connected during operating hours (6 AM – 10 PM daily)</li>
+      <li>Deliberate damage by driver = ₹5,000 deducted from incentive payments</li>
+      <li>Stolen device: driver must file police FIR and share copy within 48 hours</li>
+      <li>Monthly incentive: ₹900 paid via bank transfer by 5th of following month</li>
+      <li>Loyalty bonus: incentive increases to ₹1,200/month after 6 months uninterrupted service</li>
+      <li>RouteReach can terminate agreement with 7-day notice and immediately reclaim device</li>
+      <li>Driver cannot move or transfer device to any other vehicle without written permission</li>
+    </ul>
+    <p style="margin-top:8px">Get all agreements notarized (₹100–200 each). Protects your ₹15,000 hardware investment per auto.</p>
+  </div>
+
+  <div class="card">
+    <div class="ct">Advertiser Agreement — Key Clauses</div>
+    <ul class="dl">
+      <li>Full campaign payment in advance before campaign goes live — no credit</li>
+      <li>No refunds once campaign is live. Technical downtime over 10% gets credit for next month only</li>
+      <li>Impressions are estimated, not guaranteed exact (±15% tolerance acceptable)</li>
+      <li>Ad creative must be submitted 5 business days before campaign start date</li>
+      <li>RouteReach reserves right to reject ad creative that violates law, decency, or community standards</li>
+      <li>GST invoice issued within 24 hours of payment confirmation</li>
+      <li>Minimum campaign duration: 30 days</li>
+      <li>RouteReach not liable for competitor ads running simultaneously in same city</li>
+      <li>Campaign data/impressions dashboard accessible for duration of campaign</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!--  TAB 4 — WEBSITE                                            -->
+<!-- ============================================================ -->
+<div id="website" class="sec">
+
+  <div class="mrow">
+    <div class="m"><div class="mv">4–6 wks</div><div class="ml">Build time<br>(Starset team)</div></div>
+    <div class="m"><div class="mv">₹0</div><div class="ml">Starset builds<br>in-house</div></div>
+    <div class="m"><div class="mv">₹2K/mo</div><div class="ml">Hosting total<br>Vercel + Railway</div></div>
+    <div class="m"><div class="mv">5 pages</div><div class="ml">MVP scope<br>ship in 6 weeks</div></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Tech Stack</div>
+    <table>
+      <tr><th>Layer</th><th>Tool</th><th>Why</th></tr>
+      <tr><td>Frontend</td><td>React + Tailwind CSS</td><td>Starset knows this. Fast build, modern UI.</td></tr>
+      <tr><td>Backend</td><td>Node.js + Express</td><td>REST API used by both website and Android APK</td></tr>
+      <tr><td>Database</td><td>Supabase (PostgreSQL)</td><td>Free tier, real-time, built-in auth, Row Level Security</td></tr>
+      <tr><td>Payments</td><td>Razorpay</td><td>Indian standard. UPI + cards + netbanking. Auto GST invoices.</td></tr>
+      <tr><td>Maps + Geofencing</td><td>Google Maps API</td><td>Draw zones visually, geofence queries. $200 free credit/month.</td></tr>
+      <tr><td>Ad Media Storage</td><td>Cloudinary</td><td>25GB free. CDN delivery. Auto image/video optimization.</td></tr>
+      <tr><td>Transactional Email</td><td>Resend.com</td><td>3,000 emails/month free. Campaign receipts, reports.</td></tr>
+      <tr><td>Frontend Hosting</td><td>Vercel</td><td>Free for startups. Auto-deploys from GitHub on every push.</td></tr>
+      <tr><td>Backend Hosting</td><td>Railway.app</td><td>~$5/month. One-click Node.js deploy.</td></tr>
+      <tr><td>Analytics</td><td>PostHog (self-hosted)</td><td>Track advertiser funnel behavior free</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">Page 1 — Homepage (Advertiser-First)</div>
+    <ul class="dl">
+      <li>Hero headline: "Reach 10,000 Passengers Daily. Hyperlocal Ads in Hyderabad's Autos."</li>
+      <li>Live stats bar: active autos, cities covered, avg daily impressions — auto-updates from DB</li>
+      <li>How it works: 3-step animation (Pick Zone → Upload Ad → Go Live in 48 hours)</li>
+      <li>Interactive zone map (Google Maps): click a zone → see auto count + daily reach estimate</li>
+      <li>Pricing table: 3 tiers (Hyper Local / Zone Pack / City Wide)</li>
+      <li>Social proof: first advertiser logos + 1-line quote once you have 3 clients</li>
+      <li>CTA: "Start Campaign" → Advertiser Portal signup</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ct">Page 2 — Advertiser Portal (Core Product)</div>
+    <ul class="dl">
+      <li>Account creation + login (Supabase Auth — email or Google OAuth)</li>
+      <li>Campaign builder: pick city → pick zones on map → set dates → upload creative</li>
+      <li>Creative specs shown live: max 15 seconds video, image 1280×800px, file size limits</li>
+      <li>Preview: shows how ad looks on a simulated auto screen</li>
+      <li>Razorpay checkout — UPI/card/netbanking → instant GST invoice emailed</li>
+      <li>Campaign dashboard: live impressions count, active autos in zone (GPS-confirmed), daily reach chart</li>
+      <li>Download monthly report (PDF) — for advertiser's internal records</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ct">Page 3 — Driver Join Page</div>
+    <ul class="dl">
+      <li>Hero: "Earn ₹900 Extra Every Month. No Extra Work."</li>
+      <li>FAQ section: battery drain? (No — uses converter, 2W draw max) · what if screen breaks? (We fix it) · can I switch it off? (No — agreement clause)</li>
+      <li>Simple signup form: name, phone, auto permit number, city, WhatsApp number</li>
+      <li>On submit: auto WhatsApp message sent with next steps + RouteReach team contact</li>
+      <li>Show map of active zones — drivers see exactly which areas are covered</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ct">Page 4 — Admin Dashboard (Internal Only)</div>
+    <ul class="dl">
+      <li>Live fleet map: every device GPS location updating every 60 seconds</li>
+      <li>Device status: green (online + showing ads) / yellow (GPS off) / red (offline 30+ mins)</li>
+      <li>Campaign manager: active campaigns, zone assignment, ad creative upload, scheduling</li>
+      <li>Revenue dashboard: MRR, new advertisers this month, churn, outstanding invoices</li>
+      <li>Driver management: incentive tracker, agreement status, device health per driver</li>
+      <li>Auto-generate monthly PDF impression report for each advertiser → email via Resend</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="ct">Build Timeline (Starset Team)</div>
+    <table>
+      <tr><th>Week</th><th>Deliverable</th></tr>
+      <tr><td>Week 1</td><td>Wireframes + brand system. Supabase DB schema. Homepage shell HTML/CSS.</td></tr>
+      <tr><td>Week 2</td><td>Backend API: zones, ads, devices, impressions endpoints. Auth. Razorpay integration.</td></tr>
+      <tr><td>Week 3</td><td>Advertiser portal: campaign builder, zone map picker, Cloudinary media upload, checkout.</td></tr>
+      <tr><td>Week 4</td><td>Admin dashboard: live GPS fleet map, device health, campaign manager.</td></tr>
+      <tr><td>Week 5</td><td>Driver signup flow. PDF report generator. Blog CMS. SEO meta tags. Mobile responsive.</td></tr>
+      <tr><td>Week 6</td><td>Full QA, bug fixes, load test. Deploy Vercel + Railway. Go live.</td></tr>
+    </table>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!--  TAB 5 — GTM                                                -->
+<!-- ============================================================ -->
+<div id="gtm" class="sec">
+
+  <div class="warn">⚠️ Golden rule: Confirm advertiser demand BEFORE ordering hardware. Sell first, deploy second. Hardware is your biggest cost — don't order until you have paying/committed advertisers for that zone.</div>
+
+  <!-- Phase 0 -->
+  <div class="ph">
+    <div class="ph-hd" onclick="tog(this)">
+      <div class="ph-n" style="background:var(--g);color:#000">0</div>
+      <div class="ph-tt">
+        <div class="ph-title">Phase 0 — Foundation</div>
+        <div class="ph-sub">Weeks 1–4 · Legal, brand, tech, 10 pilot autos</div>
+      </div>
+      <div class="ph-arr">▼</div>
+    </div>
+    <div class="ph-body">
+      <table style="margin-top:10px">
+        <tr><th>Action</th><th>Owner</th><th>Deadline</th></tr>
+        <tr><td>Register Pvt Ltd + bank account</td><td>Shashi</td><td>Week 1</td></tr>
+        <tr><td>Domain + GST + MSME + trademark file</td><td>Shashi</td><td>Week 1</td></tr>
+        <tr><td>Sign up Hexnode MDM (30-day trial)</td><td>Tech</td><td>Week 1</td></tr>
+        <tr><td>Order 10 test devices + accessories</td><td>Shashi</td><td>Week 1</td></tr>
+        <tr><td>Fabricate 10 custom mounts + cases</td><td>Ops</td><td>Week 2</td></tr>
+        <tr><td>Build Android APK v1.0 (GPS + ad loop)</td><td>Dev</td><td>Week 2–3</td></tr>
+        <tr><td>Configure Hexnode kiosk on 2 test devices</td><td>Dev</td><td>Week 3</td></tr>
+        <tr><td>Build basic admin dashboard</td><td>Dev</td><td>Week 3–4</td></tr>
+        <tr><td>Contact Hyderabad Auto Rickshaw Union (HART)</td><td>Shashi</td><td>Week 2</td></tr>
+        <tr><td>Draft driver + advertiser agreements</td><td>Shashi + lawyer</td><td>Week 2</td></tr>
+        <tr><td>Recruit 10 pilot drivers, install 10 devices</td><td>Shashi + Ops</td><td>Week 3–4</td></tr>
+        <tr><td>Run 1-week pilot: GPS + ad display confirmed</td><td>Dev + Ops</td><td>Week 4</td></tr>
+      </table>
+      <div class="tip" style="margin-top:10px">✅ Phase 0 done when: Company registered, MDM kiosk working on device, APK showing ads with GPS zone trigger, 10 pilot autos live.</div>
+    </div>
+  </div>
+
+  <!-- Phase 1 -->
+  <div class="ph">
+    <div class="ph-hd" onclick="tog(this)">
+      <div class="ph-n" style="background:var(--y);color:#000">1</div>
+      <div class="ph-tt">
+        <div class="ph-title">Phase 1 — Hyderabad Launch</div>
+        <div class="ph-sub">Weeks 5–10 · 50 autos · Target: ₹2L/month revenue</div>
+      </div>
+      <div class="ph-arr">▼</div>
+    </div>
+    <div class="ph-body">
+      <table style="margin-top:10px">
+        <tr><th>Action</th><th>Detail</th></tr>
+        <tr><td>Order + deploy 40 more devices → 50 total</td><td>Focus routes: HITEC City, Gachibowli, Madhapur, Banjara Hills, Jubilee Hills</td></tr>
+        <tr><td>Define 5 Hyderabad zones on admin map</td><td>Each zone = ~10 autos = ₹5,000–8,000/month to one advertiser</td></tr>
+        <tr><td>Close first 5 paying advertisers</td><td>Restaurants + coaching institutes near IT corridor first — fastest close</td></tr>
+        <tr><td>Website go-live</td><td>routereach.in with advertiser portal + driver signup live</td></tr>
+        <tr><td>LinkedIn launch post</td><td>"RouteReach live — hyperlocal ads in Hyderabad autos" + photos/video</td></tr>
+        <tr><td>WhatsApp driver support group</td><td>All 50 drivers, troubleshooting, monthly payment confirmation</td></tr>
+        <tr><td>Press release</td><td>Deccan Chronicle, TOI Hyderabad, YourStory, Inc42 — "Startup brings smart ad screens to Hyderabad autos"</td></tr>
+        <tr><td>First monthly impression reports</td><td>PDF auto-sent to all 5 advertisers — proves ROI, triggers renewal</td></tr>
+      </table>
+      <div class="tip" style="margin-top:10px">✅ Phase 1 done when: 50 autos live, 5+ paying advertisers, ₹2L+/month confirmed for 2 consecutive months → order Phase 2 hardware.</div>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="ph">
+    <div class="ph-hd" onclick="tog(this)">
+      <div class="ph-n" style="background:var(--bl);color:#000">2</div>
+      <div class="ph-tt">
+        <div class="ph-title">Phase 2 — Scale Hyderabad + Pune Entry</div>
+        <div class="ph-sub">Month 3–4 · 150 autos · Target: ₹5L/month</div>
+      </div>
+      <div class="ph-arr">▼</div>
+    </div>
+    <div class="ph-body">
+      <table style="margin-top:10px">
+        <tr><th>Action</th><th>Detail</th></tr>
+        <tr><td>Scale Hyderabad to 100 autos</td><td>Add Secunderabad, Ameerpet, Kukatpally, LB Nagar zones</td></tr>
+        <tr><td>Visit Pune for 1 week</td><td>Scout routes: Hinjewadi IT Park ↔ Baner ↔ Koregaon Park ↔ Viman Nagar</td></tr>
+        <tr><td>Contact Pune auto union</td><td>Pune Autorickshaw Yantrika Sanghatna — negotiate bulk driver deal</td></tr>
+        <tr><td>Hire Pune city manager</td><td>₹22,000/month + ₹500/new advertiser bonus. Handles drivers + local sales.</td></tr>
+        <tr><td>Pre-sell 3 Pune advertisers before launch</td><td>Validate demand first. Never deploy hardware to a city without confirmed buyers.</td></tr>
+        <tr><td>Deploy 50 Pune autos</td><td>Hinjewadi Route 1 first — IT workers = premium captive audience</td></tr>
+        <tr><td>Hire 1 Hyderabad field technician</td><td>₹15,000/month part-time. Handles device installs + repairs + driver issues.</td></tr>
+        <tr><td>Launch self-serve advertiser portal</td><td>Businesses sign up online, pick zone, upload ad, pay via Razorpay — zero sales effort needed</td></tr>
+      </table>
+      <div class="tip" style="margin-top:10px">✅ Phase 2 done when: 150 autos live (100 Hyd + 50 Pune), 15+ advertisers, ₹5L+/month revenue.</div>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="ph">
+    <div class="ph-hd" onclick="tog(this)">
+      <div class="ph-n" style="background:var(--pu);color:#000">3</div>
+      <div class="ph-tt">
+        <div class="ph-title">Phase 3 — 300+ Autos, Raise Capital</div>
+        <div class="ph-sub">Month 5–6 · Target: ₹12–15L/month</div>
+      </div>
+      <div class="ph-arr">▼</div>
+    </div>
+    <div class="ph-body">
+      <table style="margin-top:10px">
+        <tr><th>Action</th><th>Detail</th></tr>
+        <tr><td>Scale Hyderabad to 200 autos</td><td>Full city coverage. Add airport corridor (Shamshabad) — premium route.</td></tr>
+        <tr><td>Scale Pune to 100 autos</td><td>Expand beyond IT corridor into Pune city commercial zones</td></tr>
+        <tr><td>Hire dedicated sales executive</td><td>₹25K base + 5% commission on new ad revenue. Targets agencies + national brands.</td></tr>
+        <tr><td>Approach regional ad agencies</td><td>GroupM Hyderabad, Dentsu Webchutney, Ogilvy Pune — they bring national brands with ₹50K+ budgets</td></tr>
+        <tr><td>Election season package</td><td>If election window: political campaigns pay 5–10× normal rates for auto ad screens</td></tr>
+        <tr><td>Apply T-Hub Hyderabad accelerator</td><td>Free mentorship + investor network + media visibility</td></tr>
+        <tr><td>Evaluate City 3</td><td>Bangalore (massive auto market) or Nagpur (low competition, strategic central location)</td></tr>
+        <tr><td>Prepare seed round pitch deck</td><td>6 months P&amp;L + 300 autos = credible traction. Target ₹50L–1Cr for 1,000-auto expansion.</td></tr>
+      </table>
+      <div class="tip" style="margin-top:10px">✅ Phase 3 done when: 300+ autos, ₹12L+/month, 30+ advertisers, profitable operations → raise seed round for national expansion.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!--  TAB 6 — SALES                                              -->
+<!-- ============================================================ -->
+<div id="sales" class="sec">
+
+  <div class="card">
+    <div class="ct">Pricing Tiers</div>
+    <table>
+      <tr><th>Plan</th><th>Coverage</th><th>Fleet</th><th>Price/Month</th><th>Target Buyer</th></tr>
+      <tr><td>Hyper Local</td><td>1 zone (e.g. HITEC City only)</td><td>~25 autos</td><td>₹4,000–6,000</td><td>Local restaurant, salon, clinic</td></tr>
+      <tr><td>Zone Pack</td><td>3 zones</td><td>~75 autos</td><td>₹12,000–18,000</td><td>Coaching institute, gym chain, pharmacy</td></tr>
+      <tr><td>City Wide</td><td>All Hyderabad zones</td><td>200+ autos</td><td>₹40,000–60,000</td><td>Real estate project, hospital, FMCG</td></tr>
+      <tr><td>Multi-City</td><td>Hyd + Pune + more</td><td>300+ autos</td><td>Custom quote</td><td>National brands via agencies</td></tr>
+    </table>
+    <p style="margin-top:8px">Add seasonal surge: Diwali / IPL / election season = 1.5–2× base price. Pre-sell 90 days ahead.</p>
+  </div>
+
+  <div class="card">
+    <div class="ct">Top Advertiser Categories — Priority Order</div>
+    <table>
+      <tr><th>Category</th><th>Budget/Month</th><th>Why Easy to Close</th><th>How to Approach</th></tr>
+      <tr><td>Real Estate Developers</td><td>₹20K–80K</td><td>Huge budgets, location = everything for them</td><td>Walk into project site offices near your routes</td></tr>
+      <tr><td>Hospitals / Clinics</td><td>₹8K–25K</td><td>High LTV per patient, hyperlocal = perfect fit</td><td>Call hospital marketing manager directly</td></tr>
+      <tr><td>Coaching Institutes</td><td>₹8K–20K</td><td>Student routes, big exam-season rush (Jan–Mar)</td><td>Cold visit institutes near colleges + route hubs</td></tr>
+      <tr><td>Jewellers (Festival Season)</td><td>₹15K–40K</td><td>Huge Diwali + wedding season budgets</td><td>Pre-sell Oct–Nov packages in August</td></tr>
+      <tr><td>Restaurants / QSR Chains</td><td>₹4K–10K</td><td>Many of them, low decision friction</td><td>Walk-in during slow hours 2–4 PM weekdays</td></tr>
+      <tr><td>Apps / D2C Startups</td><td>₹10K–30K</td><td>High marketing budgets, want local user acquisition</td><td>LinkedIn cold DM to CMO/marketing head</td></tr>
+      <tr><td>Gyms + Salons</td><td>₹3K–8K</td><td>New Year + summer rush periods</td><td>Instagram DM + follow-up WhatsApp</td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">5 Sales Channels — Priority Order</div>
+
+    <div class="step">
+      <div class="sn">1</div>
+      <div class="sb">
+        <div class="st">Direct Field Outreach (Weeks 1–8, highest priority)</div>
+        <div class="sd">Cold call + walk-in to restaurants, clinics, coaching institutes near your zones. 30 calls/day → ~10% close rate → 3 advertisers/week. Target ₹5K–15K/month each. This is your fastest path to cash. Do this yourself first month.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">2</div>
+      <div class="sb">
+        <div class="st">LinkedIn B2B Outreach (Month 1+)</div>
+        <div class="sd">DM marketing managers at Hyderabad IT companies, hospital groups, real estate firms. Message template: "We run 50 ad screens in autos through your office area — 5,000 impressions/day. ₹6,000/month. Free 7-day trial?" Response rate 15–20% for hyperlocal offers like this.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">3</div>
+      <div class="sb">
+        <div class="st">Ad Agency Partnerships (Month 3+)</div>
+        <div class="sd">Boutique Hyderabad agencies each manage 10–20 clients. One agency relationship = 10+ advertisers. Offer 15–20% commission on campaign value. Start with smaller agencies (Rasta, Ideaworks, Brandlogist). National agencies after 300+ auto proof.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">4</div>
+      <div class="sb">
+        <div class="st">Business Associations (Month 2+)</div>
+        <div class="sd">Present at FAPCCI (Federation of AP Chambers), CII Young Indians Hyderabad, HYSEA (Software Exporters). One presentation = room of 50 business owners. Higher-value leads. Ask to be on their member newsletter too.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">5</div>
+      <div class="sb">
+        <div class="st">Self-Serve Portal (Month 2+, scales to 30% of revenue)</div>
+        <div class="sd">Small businesses sign up on routereach.in, pick zone, upload ad, pay via Razorpay — no sales call needed. Focus on making UI dead-simple. Goal: 30% of revenue by Month 6 comes from self-serve (zero marginal cost).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">10 High-Impact Marketing Ideas</div>
+
+    <div class="step">
+      <div class="sn">1</div>
+      <div class="sb">
+        <div class="st">"Ads in the Wild" Reels</div>
+        <div class="sd">Film passenger's face when they see a hyper-relevant ad — e.g., passing a mall, the mall's ad appears on screen. Genuine surprise moment = shareable. One viral Reel → 10 inbound advertiser calls. Post weekly on Instagram + LinkedIn.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">2</div>
+      <div class="sb">
+        <div class="st">Auto Stand Sticker Campaign</div>
+        <div class="sd">Small sticker at every auto stand: "Your business ad in 100 Hyderabad autos. ₹5,000/month. routereach.in". Sticker cost ₹3 each × 500 stands = ₹1,500. Reaches business owners who use autos daily and can decide fast.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">3</div>
+      <div class="sb">
+        <div class="st">Advertiser Case Studies (LinkedIn)</div>
+        <div class="sd">"Restaurant X saw 40% footfall increase from RouteReach zone ad." Post with real numbers. Tag the restaurant. Their network shares it. Each case study brings 3–5 similar businesses to your inbox. Write one every 2 weeks.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">4</div>
+      <div class="sb">
+        <div class="st">Free 7-Day Trial for First 20 Advertisers</div>
+        <div class="sd">No-risk entry. Show real impression data during trial. Converts at 60–70% to paid. Cost to you = zero (screen runs anyway). Creates word of mouth + testimonials for website.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">5</div>
+      <div class="sb">
+        <div class="st">YourStory / Inc42 PR Feature</div>
+        <div class="sd">Pitch: "Hyderabad student-founder puts GPS-powered ad screens in 50 autos." YourStory loves this format. One feature = 10,000+ reads + 15–25 inbound advertiser inquiries. Write the pitch yourself, 300 words, email to editorial@yourstory.com.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">6</div>
+      <div class="sb">
+        <div class="st">Driver Referral Program</div>
+        <div class="sd">Driver brings another verified driver → ₹500 bonus after 30 days live. Creates viral driver recruitment within auto driver WhatsApp groups. Cuts your field acquisition cost significantly. Start from Month 1.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">7</div>
+      <div class="sb">
+        <div class="st">Seasonal Ad Packages (Pre-Sell 90 Days Out)</div>
+        <div class="sd">Diwali Package (Oct–Nov): +30% premium · IPL Season (Mar–May): sports bar + food delivery · Exam Season (Jan–Mar): coaching institutes · Wedding Season (Nov–Feb): caterers, jewellers. Advertiser pays in advance → you have confirmed revenue before the season.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">8</div>
+      <div class="sb">
+        <div class="st">Google Ads — ₹5K/Month Budget</div>
+        <div class="sd">Target keywords: "outdoor advertising Hyderabad", "auto rickshaw advertising Pune", "hyperlocal ads India". Commercial intent. ₹5K spend → 50–100 qualified inbound inquiries/month. ROI positive from first advertiser close.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">9</div>
+      <div class="sb">
+        <div class="st">WhatsApp Broadcast to Business Owners</div>
+        <div class="sd">Build list of 500 Hyderabad business owner WhatsApp numbers (trade directories, FAPCCI lists, business cards). Weekly broadcast: "Diwali ad package in 100 Hyderabad autos — ₹6,000 for 30 days. Book now." WhatsApp = 95%+ open rate vs 20% for email.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="sn">10</div>
+      <div class="sb">
+        <div class="st">T-Hub / Startup India Demo Days</div>
+        <div class="sd">Apply to T-Hub Hyderabad accelerator. Present RouteReach at Demo Day. One good presentation = investor interest + media coverage + 5–10 business partnerships. Also enter CII startup awards — winners get press coverage worth ₹5L+ in ad value.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!--  TAB 7 — FINANCIALS                                         -->
+<!-- ============================================================ -->
+<div id="financials" class="sec">
+
+  <div class="mrow">
+    <div class="m"><div class="mv">₹12L</div><div class="ml">Phase 1 capital<br>required (50 autos)</div></div>
+    <div class="m"><div class="mv">Month 4</div><div class="ml">Break-even on<br>Phase 1 capex</div></div>
+    <div class="m"><div class="mv">49%</div><div class="ml">Net margin<br>at 300 autos</div></div>
+    <div class="m"><div class="mv">₹15L</div><div class="ml">Month 6 projected<br>net profit</div></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">Phase 1 Investment Breakdown — 50 Autos</div>
+    <table>
+      <tr><th>Item</th><th>Qty</th><th>Unit</th><th>Total</th></tr>
+      <tr><td>Samsung Tab A8 LTE (10.5")</td><td>50</td><td>₹14,999</td><td>₹7,49,950</td></tr>
+      <tr><td>DC converters + cables + mounts + cases</td><td>50</td><td>₹1,200</td><td>₹60,000</td></tr>
+      <tr><td>Jio SIM cards + 3-month data (₹250/mo)</td><td>50</td><td>₹950</td><td>₹47,500</td></tr>
+      <tr><td>Company registration (Pvt Ltd, Indiafilings)</td><td>1</td><td>—</td><td>₹12,000</td></tr>
+      <tr><td>Trademark Class 35 filing</td><td>1</td><td>—</td><td>₹5,000</td></tr>
+      <tr><td>APK + website (Starset in-house, opportunity cost)</td><td>—</td><td>—</td><td>₹50,000</td></tr>
+      <tr><td>Hexnode MDM (50 devices × 3 months)</td><td>150</td><td>₹150</td><td>₹22,500</td></tr>
+      <tr><td>Driver incentives (50 drivers × 3 months)</td><td>150</td><td>₹900</td><td>₹1,35,000</td></tr>
+      <tr><td>Marketing + sales activities (3 months)</td><td>—</td><td>—</td><td>₹75,000</td></tr>
+      <tr><td>Field ops + logistics</td><td>—</td><td>—</td><td>₹30,000</td></tr>
+      <tr><td>Contingency buffer (10%)</td><td>—</td><td>—</td><td>₹1,09,000</td></tr>
+      <tr class="tr-t"><td colspan="3"><strong>Total Phase 1 Capital Required</strong></td><td><strong>~₹11,96,000</strong></td></tr>
+    </table>
+    <p style="margin-top:8px">Round up to ₹12L for safe buffer. At 200+ units, negotiate Flipkart B2B discount — saves ~₹1.5L on hardware.</p>
+  </div>
+
+  <div class="card">
+    <div class="ct">6-Month Revenue Projection</div>
+    <div class="rbar"><div class="rb-l">Month 1</div><div class="rb-t"><div class="rb-f" style="width:3%"></div></div><div class="rb-v">₹50K</div></div>
+    <div class="rbar"><div class="rb-l">Month 2</div><div class="rb-t"><div class="rb-f" style="width:17%"></div></div><div class="rb-v">₹2.5L</div></div>
+    <div class="rbar"><div class="rb-l">Month 3</div><div class="rb-t"><div class="rb-f" style="width:33%"></div></div><div class="rb-v">₹5L</div></div>
+    <div class="rbar"><div class="rb-l">Month 4</div><div class="rb-t"><div class="rb-f" style="width:50%"></div></div><div class="rb-v">₹7.5L</div></div>
+    <div class="rbar"><div class="rb-l">Month 5</div><div class="rb-t"><div class="rb-f" style="width:67%"></div></div><div class="rb-v">₹10L</div></div>
+    <div class="rbar"><div class="rb-l">Month 6</div><div class="rb-t"><div class="rb-f" style="width:100%"></div></div><div class="rb-v">₹15L</div></div>
+    <p style="margin-top:8px">Based on Tirupati benchmark (₹6,500/auto/month). Hyderabad + Pune = larger markets = ₹5,000–8,000/auto/month realistic. Conservative scenario used above.</p>
+  </div>
+
+  <div class="card">
+    <div class="ct">Monthly P&amp;L at 3 Scale Points</div>
+    <table>
+      <tr><th>Cost Item</th><th>50 Autos</th><th>100 Autos</th><th>300 Autos</th></tr>
+      <tr><td>Gross Revenue</td><td>₹2,50,000</td><td>₹5,00,000</td><td>₹18,00,000</td></tr>
+      <tr><td>Driver incentives</td><td>₹45,000</td><td>₹90,000</td><td>₹2,70,000</td></tr>
+      <tr><td>SIM data costs</td><td>₹12,500</td><td>₹25,000</td><td>₹75,000</td></tr>
+      <tr><td>Hexnode MDM</td><td>₹7,500</td><td>₹15,000</td><td>₹45,000</td></tr>
+      <tr><td>Hardware amortization (18-month life)</td><td>₹45,000</td><td>₹90,000</td><td>₹2,70,000</td></tr>
+      <tr><td>Staff salaries</td><td>₹20,000</td><td>₹65,000</td><td>₹1,50,000</td></tr>
+      <tr><td>Marketing + Google Ads</td><td>₹20,000</td><td>₹30,000</td><td>₹60,000</td></tr>
+      <tr><td>Server + hosting infrastructure</td><td>₹5,000</td><td>₹8,000</td><td>₹20,000</td></tr>
+      <tr><td>Maintenance + device replacements</td><td>₹10,000</td><td>₹20,000</td><td>₹55,000</td></tr>
+      <tr><td><strong>Total Monthly Costs</strong></td><td>₹1,65,000</td><td>₹3,43,000</td><td>₹9,45,000</td></tr>
+      <tr class="tr-t">
+        <td><strong>Net Profit</strong></td>
+        <td><strong>₹85,000</strong></td>
+        <td><strong>₹1,57,000</strong></td>
+        <td><strong>₹8,55,000</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Net Margin</strong></td>
+        <td><span class="b bb">34%</span></td>
+        <td><span class="b bb">31%</span></td>
+        <td><span class="b bg">48%</span></td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="ct">Funding Options</div>
+    <table>
+      <tr><th>Source</th><th>Amount</th><th>Timeline</th><th>Notes</th></tr>
+      <tr><td>Self-fund / Starset revenue</td><td>₹5–10L</td><td>Immediate</td><td>Best option. Zero dilution. Use Starset's existing cash flow.</td></tr>
+      <tr><td>Friends &amp; Family round</td><td>₹5–15L</td><td>1–2 weeks</td><td>Convertible note. No valuation fight needed at this stage.</td></tr>
+      <tr><td>Karnataka Startup Seed Fund</td><td>₹10–25L</td><td>2–3 months</td><td>You're based in Bidar (Karnataka). Apply via DPIIT + Karnataka Innovation &amp; Technology Society.</td></tr>
+      <tr><td>SIDBI Startup Mitra</td><td>₹10–50L</td><td>4–8 weeks</td><td>Govt scheme, low interest rate. Needs 6 months operations proof.</td></tr>
+      <tr><td>T-Hub Hyderabad</td><td>Mentorship + network</td><td>Apply anytime</td><td>Free. Their investor network reaches angels who fund exactly this type of business.</td></tr>
+      <tr><td>Angel investors (Phase 3)</td><td>₹50L–1Cr</td><td>After 100-auto proof</td><td>Come with 6-month P&amp;L data. "100 autos, ₹5L/month, 31% margin" = fundable traction.</td></tr>
+    </table>
+  </div>
+
+</div>
+
+<!-- ============================================================ -->
+<!--  TAB 8 — CHECKLIST                                          -->
+<!-- ============================================================ -->
+<div id="checklist" class="sec">
+  <p style="font-size:11px;color:var(--t3);margin-bottom:12px">Click any item to mark done. Progress tracked in header bar.</p>
+
+  <!-- Phase 0 Foundation -->
+  <div class="ph">
+    <div class="ph-hd" onclick="tog(this)">
+      <div class="ph-n" style="background:var(--g);color:#000">0A</div>
+      <div class="ph-tt"><div class="ph-title">Foundation — Legal &amp; Brand (Weeks 1–2)</div><div class="ph-sub">Get the business legally ready</div></div>
+      <div class="ph-arr">▼</div>
+    </div>
+    <div class="ph-body">
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Finalize business name (RouteReach Media or your pick)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Check domain availability + buy routereach.in + .com on GoDaddy/Namecheap</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Register Private Limited Company via Indiafilings.com (~₹10,000)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Open business current account — HDFC Startup or ICICI iStartup</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Apply GST registration at gst.gov.in (free, 3–7 days)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Apply MSME/Udyam certificate at udyamregistration.gov.in (free, 1 day)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">File trademark application — Class 35 at ipindia.gov.in (₹4,500)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Set up Google Workspace: info@, sales@, drivers@ emails (₹150/user/month)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Design logo — Canva or Fiverr designer (₹1,500–3,000). Get 3 variants.</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Create LinkedIn company page + Instagram Business + WhatsApp Business</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Draft driver agreement template (lawyer review ₹2,000). Get notarized copies ready.</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Draft advertiser agreement template</div></div>
+    </div>
+  </div>
+
+  <!-- Phase 0 Hardware -->
+  <div class="ph">
+    <div class="ph-hd" onclick="tog(this)">
+      <div class="ph-n" style="background:var(--g);color:#000">0B</div>
+      <div class="ph-tt"><div class="ph-title">Foundation — Hardware Setup (Weeks 1–3)</div><div class="ph-sub">Get 10 test devices configured and kiosk-locked</div></div>
+      <div class="ph-arr">▼</div>
+    </div>
+    <div class="ph-body">
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Sign up Hexnode MDM at hexnode.com — start 30-day free trial</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Order 10 Samsung Tab A8 10.5" LTE from Flipkart/Amazon (₹14,999 each)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Order 10 automotive 12V→5V DC-DC USB-C converters (Robu.in ~₹350 each)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Get 10 Jio/Airtel SIM cards with 1GB/day data plan</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Commission 10 custom mounts from local metal fabricator (₹500 each)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Get 10 tamper-proof acrylic/metal button-cover cases made (₹350 each)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Enroll 1 test device in Hexnode via QR (Android Enterprise Device Owner)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Configure Hexnode kiosk policy: single app, buttons disabled, USB locked, Knox active</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Verify: device boots only to your app, nothing else accessible, cannot exit</div></div>
+    </div>
+  </div>
+
+  <!-- Tech Build -->
+  <div class="ph">
+    <div class="ph-hd" onclick="tog(this)">
+      <div class="ph-n" style="background:var(--g);color:#000">0C</div>
+      <div class="ph-tt"><div class="ph-title">Tech Build — APK + Backend + Website (Weeks 2–6)</div><div class="ph-sub">Starset builds everything in-house</div></div>
+      <div class="ph-arr">▼</div>
+    </div>
+    <div class="ph-body">
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Set up Supabase project: DB schema (devices, zones, ads, impressions, campaigns, advertisers)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Build Android APK v1.0: fullscreen launcher + ad loop + GPS geofencing</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Add offline cache (50 ads), watchdog service, heartbeat impression ping</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Build Node.js backend API: zones, ads, devices, impressions endpoints</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Build basic admin dashboard: device GPS map, campaign manager, fleet health</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Upload APK to Hexnode, push to kiosk device — test full ad display flow</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Build website: homepage + advertiser portal + campaign builder + driver signup</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Integrate Razorpay on advertiser portal (campaign payment flow)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Set up Cloudinary for ad media storage + Resend for transactional emails</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Deploy: Vercel (frontend) + Railway (backend). Domain pointed to routereach.in</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Run end-to-end test: upload ad → assign zone → GPS triggers ad on locked tablet ✅</div></div>
+    </div>
+  </div>
+
+  <!-- Pilot -->
+  <div class="ph">
+    <div class="ph-hd" onclick="tog(this)">
+      <div class="ph-n" style="background:var(--g);color:#000">0D</div>
+      <div class="ph-tt"><div class="ph-title">Pilot — 10 Autos (Weeks 3–5)</div><div class="ph-sub">Real-world test before full launch</div></div>
+      <div class="ph-arr">▼</div>
+    </div>
+    <div class="ph-body">
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Contact Hyderabad Auto Rickshaw Union (HART) — schedule meeting with union head</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Recruit 10 pilot drivers, verify auto permits, sign agreements, collect bank details</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Install devices in all 10 autos: mount, power, SIM, MDM enroll</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Run 1-week GPS test: confirm geofence triggers correctly across HITEC City zone</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Onboard 2 trial advertisers (even free) — confirm ad displaying correctly on routes</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Set up driver WhatsApp group — troubleshooting + incentive confirmations</div></div>
+    </div>
+  </div>
+
+  <!-- Phase 1 Launch -->
+  <div class="ph">
+    <div class="ph-hd" onclick="tog(this)">
+      <div class="ph-n" style="background:var(--y);color:#000">1</div>
+      <div class="ph-tt"><div class="ph-title">Phase 1 — Hyderabad Launch (Weeks 7–10)</div><div class="ph-sub">50 autos · Target: ₹2L/month</div></div>
+      <div class="ph-arr">▼</div>
+    </div>
+    <div class="ph-body">
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Order 40 more devices → 50 total fleet</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Install all 50 devices across 5 Hyderabad zones (HITEC/Gachibowli/Madhapur/Banjara/Jubilee)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Define 5 zones on admin map — each zone minimum 10 autos</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Create sales pitch deck: 10 slides with fleet size, zones, pricing, testimonials</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Cold call/visit 50 businesses near HITEC City zone (30 calls/day for 2 weeks)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Close first 5 paying advertisers (introductory pricing OK — build case studies)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Website go-live — routereach.in with all pages live</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">LinkedIn + Instagram launch post with photos/video of screens in autos</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Send press release to Deccan Chronicle, TOI Hyderabad, YourStory, Inc42</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Generate first monthly impression PDF report for all advertisers</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">⭐ CHECKPOINT: ₹2L/month for 2 consecutive months → proceed to Phase 2</div></div>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="ph">
+    <div class="ph-hd" onclick="tog(this)">
+      <div class="ph-n" style="background:var(--bl);color:#000">2</div>
+      <div class="ph-tt"><div class="ph-title">Phase 2 — Scale + Pune Entry (Month 3–4)</div><div class="ph-sub">150 autos · Target: ₹5L/month</div></div>
+      <div class="ph-arr">▼</div>
+    </div>
+    <div class="ph-body">
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Order 100 more devices (negotiate Flipkart B2B bulk discount)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Scale Hyderabad to 100 autos (add Secunderabad, Ameerpet, Kukatpally zones)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Visit Pune for 1 week: route scouting + auto union meeting</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Pre-sell 3 Pune advertisers BEFORE ordering Pune hardware</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Hire Pune city manager (₹22,000/month + ₹500/advertiser bonus)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Deploy 50 Pune autos (Hinjewadi route priority)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Hire Hyderabad field technician (₹15,000/month part-time)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Launch self-serve advertiser portal — businesses sign up + pay online without you</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Approach 5 Hyderabad digital ad agencies (15–20% commission offer)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">⭐ CHECKPOINT: 150 autos live, ₹5L/month, 15+ advertisers → proceed to Phase 3</div></div>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="ph">
+    <div class="ph-hd" onclick="tog(this)">
+      <div class="ph-n" style="background:var(--pu);color:#000">3</div>
+      <div class="ph-tt"><div class="ph-title">Phase 3 — 300+ Autos + Raise Capital (Month 5–6)</div><div class="ph-sub">Target: ₹12–15L/month net</div></div>
+      <div class="ph-arr">▼</div>
+    </div>
+    <div class="ph-body">
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Scale Hyderabad to 200 autos (include Shamshabad airport corridor)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Scale Pune to 100 autos (expand to commercial Pune zones)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Hire dedicated sales executive (₹25K base + 5% revenue commission)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Approach GroupM, Dentsu, Ogilvy regional offices (Hyd + Pune)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Launch seasonal packages (Diwali pre-sell in August, election packages if applicable)</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Apply to T-Hub Hyderabad accelerator program</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Evaluate City 3 (Bangalore or Nagpur) — scout + calculate unit economics</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">Prepare investor pitch deck: 6-month P&amp;L, unit economics, growth trajectory</div></div>
+      <div class="ci" onclick="ck(this)"><div class="cb"></div><div class="ct-txt">⭐ CHECKPOINT: ₹12L+/month, 300+ autos, profitable → raise ₹50L–1Cr seed for national expansion</div></div>
+    </div>
+  </div>
+
+</div><!-- end checklist -->
+</div><!-- end wrap -->
+
+<script>
+// TAB SWITCHING
+function sw(id, el) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  el.classList.add('on');
+}
+
+// COLLAPSIBLE PHASE SECTIONS
+function tog(hd) {
+  const body = hd.nextElementSibling;
+  const isHidden = body.classList.contains('hidden');
+  body.classList.toggle('hidden', !isHidden);
+  hd.classList.toggle('closed', !isHidden);
+}
+
+// CHECKLIST
+function ck(el) {
+  el.classList.toggle('done');
+  uprog();
+}
+
+function uprog() {
+  const all = document.querySelectorAll('.ci').length;
+  const done = document.querySelectorAll('.ci.done').length;
+  const pct = all ? (done / all * 100) : 0;
+  document.getElementById('pbf').style.width = pct + '%';
+  document.getElementById('pbv').textContent = done + '/' + all + ' done';
+}
+
+// Initialize progress on load
+uprog();
+</script>
+</body>
+</html>
